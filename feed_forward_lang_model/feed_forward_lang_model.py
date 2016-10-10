@@ -60,10 +60,10 @@ class BigramInNN(object):
 		self.e = self.random_variable([v_sz, embd_sz])
 		self.embd = tf.nn.embedding_lookup(self.e, self.INPT)
 
-		self.w1 = self.random_variable([embd_sz, 100])
-		self.b1 = self.random_variable([100])
-		self.w2 = self.random_variable([100, v_sz])
-		self.b2 = self.random_variable([v_sz])
+		self.w1 = self.weight_variable([embd_sz, 100])
+		self.b1 = self.bias_variable([100])
+		self.w2 = self.weight_variable([100, v_sz])
+		self.b2 = self.bias_variable([v_sz])
 
 		self.h1 = tf.nn.relu(tf.matmul(self.embd, self.w1) + self.b1)
 		self.h2 = tf.matmul(self.h1, self.w2) + self.b2
@@ -101,7 +101,15 @@ class BigramInNN(object):
 
 
 	def random_variable(self, shape):
-		initial = tf.random_uniform(shape, -1, 1)
+		initial = tf.random_uniform(shape, -0.5, 0.5)
+		return tf.Variable(initial)
+
+	def weight_variable(self, shape):
+		initial = tf.truncated_normal(shape, stddev = 0.1)
+		return tf.Variable(initial)
+
+	def bias_variable(self, shape):
+		initial = tf.constant(0.1, shape = shape)
 		return tf.Variable(initial)
 		
 
