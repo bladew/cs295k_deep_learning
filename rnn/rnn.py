@@ -75,7 +75,7 @@ class DataProcessor(object):
 
 
 class Rnn(object):
-	def __init__(self, data_input, embd_sz = 50, num_epoch=1, state_sz = 256, num_step = 20, batch_sz = 20):
+	def __init__(self, data_input, embd_sz = 50, num_epoch=5, state_sz = 256, num_step = 20, batch_sz = 20):
 		super(Rnn, self).__init__()
 		vocab_sz = data_input.get_vocab_size()
 		self.batch_sz = batch_sz
